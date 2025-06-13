@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirection vers Impr'wouf</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 50px; }
+    </style>
+</head>
+<body>
+    <h1>Redirection en cours...</h1>
+    <p>Vous allez être redirigé vers l'application Impr'wouf.</p>
+    <p>Si la redirection ne fonctionne pas, assurez-vous que l'application est installée et cliquez sur le bouton ci-dessous.</p>
+    <button id="redirectButton">Ouvrir l'application</button>
+
+    <script>
+        // Le schéma et le domaine de votre application, définis dans FlutterFlow
+        const SCHEME = 'imprwoufalpha';
+        const DOMAIN = 'imprwoufalpha.com';
+
+        function getRedirectUrl() {
+            // Récupère le chemin de l'URL actuelle (ex: "/success" ou "/refresh")
+            const path = window.location.pathname.toLowerCase();
+
+            if (path.includes('success')) {
+                return `${SCHEME}://${DOMAIN}/stripe-Onboarding-Success`;
+            } else if (path.includes('refresh')) {
+                return `${SCHEME}://${DOMAIN}/stripe-Onboarding-Refresh`;
+            } else {
+                // Fallback si le chemin est inattendu
+                return `${SCHEME}://${DOMAIN}/stripe-Onboarding-Success`;
+            }
+        }
+
+        const finalUrl = getRedirectUrl();
+
+        // Tenter la redirection automatique au chargement de la page
+        window.onload = function() {
+            window.location.href = finalUrl;
+        };
+
+        // Assigner l'action au bouton de fallback
+        document.getElementById('redirectButton').onclick = function() {
+            window.location.href = finalUrl;
+        };
+    </script>
+</body>
+</html>
